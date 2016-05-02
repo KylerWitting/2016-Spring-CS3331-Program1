@@ -1,0 +1,128 @@
+The README is used to answer questions posed by the professor.
+The Questions and programming assignment can be found in the PDF.
+
+To Run
+	gcc prog1.c -lm -o prog1
+	./prog1 m n r s
+		All are positive int
+		r & s are usually pretty large 
+
+testScript.sh is used to test the program 1000 times
+
+// ----------------------------------------------------------- 
+// NAME : Kyler Witting                      User ID: kmwittin 
+// PROGRAM ASSIGNMENT 1
+// FILE NAME : README
+// PROGRAM PURPOSE :
+//      The Makefile that answers the questions from the assignment
+// -----------------------------------------------------------
+
+Question 1: 0 is false and 1 is true for the if statement. fork() returns 0 in 
+the child and 1 for the parent. In the first loop fork() will return 0 in the
+child1 and it will skip the if statement, the parent will receive above 1 so
+it will enter the if statement and then exit the for loop and then print and
+exit the program. The child1 will then have i = 2 and go through the for loop.
+Child1 will exit at the if statement and Child2 will continue through the loop.
+ Child2 will create child3 as it exits the for loop. 
+
+Across is the fork, down is the rest of the current process.
+The arrow is the fork() method
+The x is printing then exiting the process.
+
+i=1       i=2       i=3
+Parent--->Child1--->Child2---x
+   |         |         |
+   x         x      Child3
+                       |
+                       x
+
+i = 1	Parent (exits) --> Child1 
+i = 2	Child1 (exits) --> Child2
+i = 3	Child2 (exits) --> Child3
+
+
+Question 2: This is closer to the way that we implement the fork(). If a fork()
+returns less than 0 it is because an error has occurred. If a 0 is returned it
+means it is the child process created from the fork() and it will end the if
+statement, which will immediately break the loop, print it's statement, and
+exit the process. The parent will loop through the for statement 3 times, each
+time creating a child. 
+
+Across is the fork, down is the rest of the current process.
+The arrow is the fork() method
+The x is printing then exiting the process.
+
+i=1       i=2       i=3
+Parent--->Parent--->Parent---x
+   |         |         |
+Child1    Child2    Child3
+   |         |         |
+   x         x         x
+
+i = 1	Parent         --> Child1 (exits)
+i = 2	Parent         --> Child2 (exits)
+i = 3	Parent (exits) --> Child3 (exits)
+
+
+Question 3: This time the fork() call in the if statement will only break when
+there is an error. The children and the parent will loop through every
+iteration of the for statement independently. It goes through the for loop 7
+times in total. The parent goes through 3 times and create 3 children. The
+first child (child1) creates 2 more children (child4 and child5). child5 exits
+and child4 creates a new child (child7) then both exit. The second child
+(child2) creates one child (child6) and then they both exit. The third child
+(child3) creates no more children. child2 creates child 6 and then both of
+them exit.
+
+Across is the fork, down is the rest of the current process.
+The arrow is the fork() method
+The x is printing then exiting the process.
+(letter) shows where a thread is continued. 
+There wasn't enough room to have it all in one diagram. 
+
+i=1       i=2       i=3
+Parent--->Parent--->Parent---x
+   |         |         |
+Child1    Child2    Child3
+   |         |         |
+  (a)       (b)        x
+
+(a)
+i=2       i=3
+Child1--->Child1---x
+   |         |
+Child4    Child5
+   |         |
+  (c)        x
+
+(b)
+i=3
+Child2---x
+  |
+Child6
+  |
+  x
+
+(c)
+i=3
+Child4---x
+  |
+Child7
+  |
+  x
+
+
+
+
+To Compile while in the current directory: 
+    gcc  prog1.c -lm -o prog1
+To Run while in the current directory: 
+    ./prog1 m n r s
+        m: sorts m random integers using the heap sort
+        n: computes the n-th Fibonacci number fn using recursion
+        r: finds the solution of Buffoon's needle problem by throwing a needle r times
+        s: fourth process computes the integration of function sin(x) between 0 and PI
+    
+The main program forks four child processes, waits for their completion, and exits
+
+
